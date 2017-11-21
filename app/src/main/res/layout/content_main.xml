@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#48aa7b">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+
+        <SeekBar
+            android:id="@+id/cart"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="0.07"
+            android:background="@null"
+            android:progressTint="#ffffff"
+            android:secondaryProgressTint="#ffffff"
+            android:thumb="@drawable/thirdcart" />
+
+
+        <TextView
+            android:id="@+id/YouLose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/startAnimation"
+            android:layout_alignEnd="@+id/counter"
+            android:layout_alignRight="@+id/counter"
+            android:layout_marginBottom="127dp"
+            android:text="You Lose!" />
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/startAnimation"
+            android:layout_toStartOf="@+id/startAnimation"
+            android:background="@drawable/firstpanda" />
+
+        <ImageView
+            android:id="@+id/pictureTwo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/startAnimation"
+            android:layout_toStartOf="@+id/startAnimation"
+            android:background="@drawable/firstpanda" />
+
+        <ImageView
+            android:id="@+id/pictureThree"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/startAnimation"
+            android:layout_toStartOf="@+id/startAnimation"
+            android:background="@drawable/firstpanda" />
+
+        <Button
+            android:id="@+id/startAnimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/cart"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/teststartbuttontwo"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/YouLose"
+            android:layout_marginBottom="17dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
+            android:layout_toEndOf="@+id/startAnimation"
+            android:layout_toRightOf="@+id/startAnimation"
+            android:text="Counter" />
+
+
+        <ImageView
+            android:id="@+id/heartOne"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/heart" />
+
+        <ImageView
+            android:id="@+id/heartThree"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignTop="@+id/heartTwo"
+            android:layout_toLeftOf="@+id/heartTwo"
+            android:layout_toStartOf="@+id/heartTwo"
+            android:background="@drawable/heart" />
+
+
+        <ImageView
+            android:id="@+id/heartTwo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/heart"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/heartOne"
+            android:layout_toStartOf="@+id/heartOne" />
+
+        <ImageView
+            android:id="@+id/plusone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/cart"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            app:srcCompat="@drawable/newplusone" />
+
+        <ImageView
+            android:id="@+id/fallingHeart"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/heart" />
+
+        <ImageView
+            android:id="@+id/fallingHeartTwo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/fallingHeart"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/heart" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>
