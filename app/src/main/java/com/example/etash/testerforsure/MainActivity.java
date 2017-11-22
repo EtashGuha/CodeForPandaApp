@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     double timeConstant;
     long timeFirstPandaHits, timeSecondPandaHits, timeThirdPandaHits;
     SeekBar slider;
-    Drawable cart, previousCart;
     Vibrator vibrator;
     TranslateAnimation primaryAnimation, secondaryAnimation, tertiaryAnimation;
     @Override
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         picture.measure(0,0);
         secondPanda.measure(0,0);
         thirdPanda.measure(0,0);
-        timeConstant = .7;
+        timeConstant = 1;
         currPosition = (float)(Math.random() * (screenWidth - 2 * picture.getMeasuredWidth()));
         currPositionTwo = (float)(Math.random() * (screenWidth - 2 * secondPanda.getMeasuredWidth()));
         currPositionThree = (float)(Math.random() * (screenWidth - 2 * thirdPanda.getMeasuredWidth()));
@@ -130,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
                 heartThree.setVisibility(View.VISIBLE);
                 slider.setVisibility(View.VISIBLE);
                 picture.setVisibility(View.VISIBLE);
+                picture.clearAnimation();
+                secondPanda.clearAnimation();
+                thirdPanda.clearAnimation();
+                fallingHeart.clearAnimation();
+                fallingHeartTwo.clearAnimation();
                 numHearts = 3;
                 startAnimation.setVisibility(View.INVISIBLE);
                 startAnimation.setX(screenWidth/2 - startAnimation.getWidth()/2);
@@ -137,15 +141,15 @@ public class MainActivity extends AppCompatActivity {
                 slider.measure(0,0);
                 primaryAnimation = new TranslateAnimation(0, 0, 0, screenHeight);
                 primaryAnimation.setInterpolator(new LinearInterpolator());
-                primaryAnimation.setDuration(10000);
+                primaryAnimation.setDuration(8000);
                 primaryAnimation.setFillAfter(false);
                 secondaryAnimation = new TranslateAnimation(0, 0, 0, screenHeight);
                 secondaryAnimation.setInterpolator(new LinearInterpolator());
-                secondaryAnimation.setDuration(10000);
+                secondaryAnimation.setDuration(8000);
                 secondaryAnimation.setFillAfter(false);
                 tertiaryAnimation = new TranslateAnimation(0, 0, 0, screenHeight);
                 tertiaryAnimation.setInterpolator(new LinearInterpolator());
-                tertiaryAnimation.setDuration(10000);
+                tertiaryAnimation.setDuration(8000);
                 tertiaryAnimation.setFillAfter(false);
                 Animation.AnimationListener primaryAnimationListener = new Animation.AnimationListener() {
                     @Override
@@ -167,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                             fadeOutAndHideImage(plusone);
                             counter++;
                             counterText.setText("Points: " + counter);
-                            primaryAnimation.setDuration(10000 - (long) ((10000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
+                            primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
                             setPosition();
                             if(counter == 10)
                             {
@@ -183,14 +187,14 @@ public class MainActivity extends AppCompatActivity {
                             switch (numHearts) {
                                 case 2:
                                     heartThree.setVisibility(View.INVISIBLE);
-                                    primaryAnimation.setDuration(10000 - (long) ((10000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
+                                    primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
                                     setPosition();
                                     picture.startAnimation(primaryAnimation);
                                     animateHeartsFalling(fallingHeart);
                                     break;
                                 case 1:
                                     heartTwo.setVisibility(View.INVISIBLE);
-                                    primaryAnimation.setDuration(10000 - (long) ((10000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
+                                    primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
                                     setPosition();
                                     picture.startAnimation(primaryAnimation);
                                     animateHeartsFalling(fallingHeartTwo);
@@ -201,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
                                     slider.setVisibility(View.INVISIBLE);
                                     picture.setVisibility(View.INVISIBLE);
                                     counter = 0;
+                                    picture.clearAnimation();
+                                    secondPanda.clearAnimation();
+                                    thirdPanda.clearAnimation();
+                                    fallingHeart.clearAnimation();
+                                    fallingHeartTwo.clearAnimation();
                                     startAnimation.setVisibility(View.VISIBLE);
 
                                     vibrator.vibrate(100);
@@ -281,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
                             fadeOutAndHideImage(plusone);
                             counter++;
                             counterText.setText("Points: " + counter);
-                            secondaryAnimation.setDuration(10000 - (long) ((10000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
+                            secondaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
                             setPositionTwo();
                             if(counter == 20)
                             {
@@ -293,14 +302,14 @@ public class MainActivity extends AppCompatActivity {
                             switch (numHearts) {
                                 case 2:
                                     heartThree.setVisibility(View.INVISIBLE);
-                                    animation.setDuration(10000 - (long) ((10000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
+                                    animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
                                     setPositionTwo();
                                     secondPanda.startAnimation(secondaryAnimation);
                                     animateHeartsFalling(fallingHeart);
                                     break;
                                 case 1:
                                     heartTwo.setVisibility(View.INVISIBLE);
-                                    animation.setDuration(10000 - (long) ((10000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
+                                    animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
                                     setPositionTwo();
                                     secondPanda.startAnimation(secondaryAnimation);
                                     animateHeartsFalling(fallingHeartTwo);
@@ -391,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
                             fadeOutAndHideImage(plusone);
                             counter++;
                             counterText.setText("Points: " + counter);
-                            tertiaryAnimation.setDuration(10000 - (long) ((10000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
+                            tertiaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
                             setPositionThree();
                             thirdPanda.startAnimation(tertiaryAnimation);
                         } else {
@@ -399,14 +408,14 @@ public class MainActivity extends AppCompatActivity {
                             switch (numHearts) {
                                 case 2:
                                     heartThree.setVisibility(View.INVISIBLE);
-                                    tertiaryAnimation.setDuration(10000 - (long) ((10000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
+                                    tertiaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
                                     setPositionThree();
                                     thirdPanda.startAnimation(tertiaryAnimation);
                                     animateHeartsFalling(fallingHeart);
                                     break;
                                 case 1:
                                     heartTwo.setVisibility(View.INVISIBLE);
-                                    animation.setDuration(10000 - (long) ((10000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
+                                    animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
                                     setPositionThree();
                                     picture.startAnimation(tertiaryAnimation);
                                     animateHeartsFalling(fallingHeartTwo);
@@ -562,13 +571,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     public void fadeOutAndHideImage(final ImageView img)
     {
         img.setVisibility(View.VISIBLE);
@@ -591,12 +593,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setPosition()
     {
-        timeFirstPandaHits = SystemClock.currentThreadTimeMillis() + primaryAnimation.getDuration();
-        while(Math.abs(timeFirstPandaHits - timeSecondPandaHits) < 10000 || Math.abs(timeFirstPandaHits - timeThirdPandaHits) < 10000)
-        {
-            primaryAnimation.setDuration(primaryAnimation.getDuration() + 1000);
-            timeFirstPandaHits = primaryAnimation.getDuration() + SystemClock.currentThreadTimeMillis();
-        }
         picture.measure(0,0);
         newPosition = (float)(Math.random() * (screenWidth - 2 * picture.getMeasuredWidth()));
         while(Math.abs(newPosition - currPosition) < .25 * screenWidth)
@@ -609,12 +605,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setPositionTwo()
     {
-        timeSecondPandaHits = SystemClock.currentThreadTimeMillis() + secondaryAnimation.getDuration();
-        if(Math.abs(timeSecondPandaHits - timeFirstPandaHits) < 10000 || Math.abs(timeSecondPandaHits - timeThirdPandaHits) < 10000)
-        {
-            secondaryAnimation.setDuration(secondaryAnimation.getDuration() + 1000);
-            timeSecondPandaHits = secondaryAnimation.getDuration() + SystemClock.currentThreadTimeMillis();
-        }
         picture.measure(0,0);
         newPositionTwo = (float)(Math.random() * (screenWidth - 2 * picture.getMeasuredWidth()));
         while(Math.abs(newPositionTwo - currPositionTwo) < .25 * screenWidth)
@@ -628,12 +618,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setPositionThree()
     {
-        timeThirdPandaHits = SystemClock.currentThreadTimeMillis() + tertiaryAnimation.getDuration();
-        if(Math.abs(timeThirdPandaHits - timeFirstPandaHits) < 10000 || Math.abs(timeThirdPandaHits - timeSecondPandaHits) < 10000)
-        {
-            tertiaryAnimation.setDuration(tertiaryAnimation.getDuration() + 1000);
-            timeThirdPandaHits = tertiaryAnimation.getDuration() + SystemClock.currentThreadTimeMillis();
-        }
         picture.measure(0,0);
         newPositionThree = (float)(Math.random() * (screenWidth - 2 * picture.getMeasuredWidth()));
         while(Math.abs(newPositionThree - currPositionThree) < .25 * screenWidth)
@@ -643,19 +627,4 @@ public class MainActivity extends AppCompatActivity {
         thirdPanda.setX(newPositionThree);
         currPositionThree = newPositionThree;
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }
