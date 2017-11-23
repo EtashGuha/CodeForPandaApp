@@ -22,14 +22,15 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/startNewActivity"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="43dp"
         android:text="HIT PANDA TO START"
-        android:textStyle="bold"
+        android:textColor="#f48f42"
+        android:textAlignment="center"
         android:textSize="37dp"
-        android:textColor="#f48f42"/>
+        android:textStyle="bold" />
 </RelativeLayout>
 

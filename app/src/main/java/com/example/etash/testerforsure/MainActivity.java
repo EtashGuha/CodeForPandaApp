@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button startAnimation, newActivity;
     ImageView picture, secondPanda, thirdPanda, heartOne, heartTwo, heartThree, plusone, fallingHeart, fallingHeartTwo;
-    TextView youLose, counterText;
+    TextView counterText, finalScoreText;
     int counter, numHearts, screenWidth, screenHeight, sign;
     float currPosition, newPosition, floatingHeartHeight, currPositionTwo, currPositionThree, newPositionTwo, newPositionThree;
     boolean firstHeartFalling, secondHeartFalling;
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         picture = (ImageView) (findViewById(R.id.picture));
+        finalScoreText = (TextView)(findViewById(R.id.finalScore));
         secondPanda = (ImageView)(findViewById(R.id.pictureTwo));
         thirdPanda = (ImageView)(findViewById(R.id.pictureThree));
         fallingHeartTwo = (ImageView)(findViewById(R.id.fallingHeartTwo));
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         currPositionTwo = (float)(Math.random() * (screenWidth - 2 * secondPanda.getMeasuredWidth()));
         currPositionThree = (float)(Math.random() * (screenWidth - 2 * thirdPanda.getMeasuredWidth()));
         picture.setX(currPosition + picture.getMeasuredWidth());
+        finalScoreText.setVisibility(View.INVISIBLE);
         secondPanda.setX(currPositionTwo + secondPanda.getMeasuredWidth());
         thirdPanda.setX(currPositionThree + thirdPanda.getMeasuredWidth());
         heartOne = (ImageView)(findViewById(R.id.heartOne));
@@ -77,14 +79,14 @@ public class MainActivity extends AppCompatActivity {
         plusone = (ImageView)(findViewById(R.id.plusone));
         heartTwo = (ImageView)(findViewById(R.id.heartTwo));
         heartThree = (ImageView)(findViewById(R.id.heartThree));
-        youLose = (TextView) (findViewById(R.id.YouLose));
-        youLose.setVisibility(View.INVISIBLE);
         picture.setVisibility(View.INVISIBLE);
         secondPanda.setVisibility(View.INVISIBLE);
         thirdPanda.setVisibility(View.INVISIBLE);
         heartOne.setVisibility(View.INVISIBLE);
         heartTwo.setVisibility(View.INVISIBLE);
         heartThree.setVisibility(View.INVISIBLE);
+        fallingHeart.setVisibility(View.INVISIBLE);
+        fallingHeartTwo.setVisibility(View.INVISIBLE);
         plusone.setVisibility(View.INVISIBLE);
         picture.measure(0,0);
         secondPanda.measure(0,0);
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         thirdPanda.setY((float)(-1.0 * thirdPanda.getMeasuredHeight()));
         newActivity = (Button) (findViewById(R.id.startNewActivity));
         counterText = (TextView) (findViewById(R.id.counter));
+        counterText.setVisibility(View.INVISIBLE);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         counter = 0;
         slider = (SeekBar) (findViewById(R.id.cart));
@@ -123,17 +126,21 @@ public class MainActivity extends AppCompatActivity {
         startAnimation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                youLose.setVisibility(View.INVISIBLE);
+                finalScoreText.setVisibility(View.INVISIBLE);
                 heartOne.setVisibility(View.VISIBLE);
+                counterText.setVisibility(View.VISIBLE);
                 heartTwo.setVisibility(View.VISIBLE);
+                counterText.setText("Points: " + counter);
                 heartThree.setVisibility(View.VISIBLE);
                 slider.setVisibility(View.VISIBLE);
                 picture.setVisibility(View.VISIBLE);
+                finalScoreText.setText("");
                 picture.clearAnimation();
                 secondPanda.clearAnimation();
                 thirdPanda.clearAnimation();
                 fallingHeart.clearAnimation();
                 fallingHeartTwo.clearAnimation();
+                finalScoreText.clearAnimation();
                 numHearts = 3;
                 startAnimation.setVisibility(View.INVISIBLE);
                 startAnimation.setX(screenWidth/2 - startAnimation.getWidth()/2);
@@ -201,19 +208,26 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case 0:
                                     heartOne.setVisibility(View.INVISIBLE);
-                                    youLose.setVisibility(View.VISIBLE);
                                     slider.setVisibility(View.INVISIBLE);
+                                    counterText.setVisibility(View.INVISIBLE);
+                                    finalScoreText.setText("Points: " + counter);
                                     picture.setVisibility(View.INVISIBLE);
+                                    secondPanda.setVisibility(View.INVISIBLE);
+                                    thirdPanda.setVisibility(View.INVISIBLE);
+                                    fallingHeart.setVisibility(View.INVISIBLE);
+                                    fallingHeartTwo.setVisibility(View.INVISIBLE);
                                     counter = 0;
                                     picture.clearAnimation();
                                     secondPanda.clearAnimation();
                                     thirdPanda.clearAnimation();
                                     fallingHeart.clearAnimation();
                                     fallingHeartTwo.clearAnimation();
+                                    finalScoreText.clearAnimation();
+
                                     startAnimation.setVisibility(View.VISIBLE);
 
                                     vibrator.vibrate(100);
-                                    startAnimation.animate().translationY((float)(-.3 * screenHeight)).setDuration(1000).setListener(new Animator.AnimatorListener() {
+                                    startAnimation.animate().translationY((float)(-.1*screenHeight)).setDuration(1000).setListener(new Animator.AnimatorListener() {
                                         @Override
                                         public void onAnimationStart(Animator animation) {
 
@@ -221,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onAnimationEnd(Animator animation) {
-                                            startAnimation.animate().translationY((float)(-.25 * screenHeight)).setDuration(500).setListener(new Animator.AnimatorListener() {
+                                            startAnimation.animate().translationY((float)(0 * screenHeight)).setDuration(500).setListener(new Animator.AnimatorListener() {
                                                 @Override
                                                 public void onAnimationStart(Animator animation) {
 
@@ -229,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                 @Override
                                                 public void onAnimationEnd(Animator animation) {
-
+                                                    fadeInTextView(finalScoreText);
                                                 }
 
                                                 @Override
@@ -316,14 +330,25 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case 0:
                                     heartOne.setVisibility(View.INVISIBLE);
-                                    youLose.setVisibility(View.VISIBLE);
                                     slider.setVisibility(View.INVISIBLE);
+                                    finalScoreText.setText("Points: " + counter);
+                                    counterText.setVisibility(View.INVISIBLE);
                                     picture.setVisibility(View.INVISIBLE);
+                                    secondPanda.setVisibility(View.INVISIBLE);
+                                    thirdPanda.setVisibility(View.INVISIBLE);
+                                    fallingHeart.setVisibility(View.INVISIBLE);
+                                    fallingHeartTwo.setVisibility(View.INVISIBLE);
+                                    picture.clearAnimation();
+                                    secondPanda.clearAnimation();
+                                    thirdPanda.clearAnimation();
+                                    fallingHeart.clearAnimation();
+                                    fallingHeartTwo.clearAnimation();
+                                    finalScoreText.clearAnimation();
                                     counter = 0;
                                     startAnimation.setVisibility(View.VISIBLE);
 
                                     vibrator.vibrate(100);
-                                    startAnimation.animate().translationY((float)(-.3 * screenHeight)).setDuration(1000).setListener(new Animator.AnimatorListener() {
+                                    startAnimation.animate().translationY((float)(-.1 * screenHeight)).setDuration(1000).setListener(new Animator.AnimatorListener() {
                                         @Override
                                         public void onAnimationStart(Animator animation) {
 
@@ -331,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onAnimationEnd(Animator animation) {
-                                            startAnimation.animate().translationY((float)(-.25 * screenHeight)).setDuration(500).setListener(new Animator.AnimatorListener() {
+                                            startAnimation.animate().translationY((float)(0 * screenHeight)).setDuration(500).setListener(new Animator.AnimatorListener() {
                                                 @Override
                                                 public void onAnimationStart(Animator animation) {
 
@@ -339,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                 @Override
                                                 public void onAnimationEnd(Animator animation) {
-
+                                                    fadeInTextView(finalScoreText);
                                                 }
 
                                                 @Override
@@ -422,13 +447,25 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case 0:
                                     heartOne.setVisibility(View.INVISIBLE);
-                                    youLose.setVisibility(View.VISIBLE);
                                     slider.setVisibility(View.INVISIBLE);
+                                    finalScoreText.setText("Points: " + counter);
+                                    counterText.setVisibility(View.INVISIBLE);
                                     picture.setVisibility(View.INVISIBLE);
+                                    secondPanda.setVisibility(View.INVISIBLE);
+                                    thirdPanda.setVisibility(View.INVISIBLE);
+                                    fallingHeart.setVisibility(View.INVISIBLE);
+                                    fallingHeartTwo.setVisibility(View.INVISIBLE);
+                                    picture.clearAnimation();
+                                    secondPanda.clearAnimation();
+                                    thirdPanda.clearAnimation();
+                                    fallingHeart.clearAnimation();
+                                    fallingHeartTwo.clearAnimation();
+                                    finalScoreText.clearAnimation();
                                     counter = 0;
                                     startAnimation.setVisibility(View.VISIBLE);
                                     vibrator.vibrate(100);
-                                    startAnimation.animate().translationY((float)(-.3 * screenHeight)).setDuration(1000).setListener(new Animator.AnimatorListener() {
+
+                                   startAnimation.animate().translationY((float)(-.1 * screenHeight)).setDuration(1000).setListener(new Animator.AnimatorListener() {
                                         @Override
                                         public void onAnimationStart(Animator animation) {
 
@@ -436,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onAnimationEnd(Animator animation) {
-                                            startAnimation.animate().translationY((float)(-.25 * screenHeight)).setDuration(500).setListener(new Animator.AnimatorListener() {
+                                            startAnimation.animate().translationY((float)(0 * screenHeight)).setDuration(500).setListener(new Animator.AnimatorListener() {
                                                 @Override
                                                 public void onAnimationStart(Animator animation) {
 
@@ -444,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                 @Override
                                                 public void onAnimationEnd(Animator animation) {
-
+                                                    fadeInTextView(finalScoreText);
                                                 }
 
                                                 @Override
@@ -591,6 +628,24 @@ public class MainActivity extends AppCompatActivity {
         img.startAnimation(fadeOut);
     }
 
+    public void fadeInTextView(final TextView textView)
+    {
+        Animation fadeOut = new AlphaAnimation(0,1);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(1000);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation)
+            {
+                textView.setVisibility(View.VISIBLE);
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        textView.startAnimation(fadeOut);
+    }
     public void setPosition()
     {
         picture.measure(0,0);
