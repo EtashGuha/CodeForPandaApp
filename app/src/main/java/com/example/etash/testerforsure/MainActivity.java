@@ -141,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 fallingHeart.clearAnimation();
                 fallingHeartTwo.clearAnimation();
                 finalScoreText.clearAnimation();
+                counter = 0;
                 numHearts = 3;
                 startAnimation.setVisibility(View.INVISIBLE);
-                startAnimation.setX(screenWidth/2 - startAnimation.getWidth()/2);
                 startAnimation.setY(screenHeight);
                 slider.measure(0,0);
                 primaryAnimation = new TranslateAnimation(0, 0, 0, screenHeight);
@@ -178,8 +178,13 @@ public class MainActivity extends AppCompatActivity {
                             fadeOutAndHideImage(plusone);
                             counter++;
                             counterText.setText("Points: " + counter);
-                            primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
-                            setPosition();
+                            if(counter != 0)
+                            {
+                                primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
+                                setPosition();
+                                picture.startAnimation(primaryAnimation);
+                            }
+
                             if(counter == 10)
                             {
                                 secondPanda.startAnimation(secondaryAnimation);
@@ -188,22 +193,27 @@ public class MainActivity extends AppCompatActivity {
                             {
                                 thirdPanda.startAnimation(tertiaryAnimation);
                             }
-                            picture.startAnimation(primaryAnimation);
                         } else {
                             numHearts--;
                             switch (numHearts) {
                                 case 2:
                                     heartThree.setVisibility(View.INVISIBLE);
-                                    primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
-                                    setPosition();
-                                    picture.startAnimation(primaryAnimation);
+                                    if(counter != 0)
+                                    {
+                                        primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
+                                        setPosition();
+                                        picture.startAnimation(primaryAnimation);
+                                    }
                                     animateHeartsFalling(fallingHeart);
                                     break;
                                 case 1:
                                     heartTwo.setVisibility(View.INVISIBLE);
-                                    primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
-                                    setPosition();
-                                    picture.startAnimation(primaryAnimation);
+                                    if(counter != 0)
+                                    {
+                                        primaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter, timeConstant)) / (Math.pow(counter, timeConstant) + 10)));
+                                        setPosition();
+                                        picture.startAnimation(primaryAnimation);
+                                    }
                                     animateHeartsFalling(fallingHeartTwo);
                                     break;
                                 case 0:
@@ -249,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onAnimationCancel(Animator animation) {
                                                     startAnimation.measure(0,0);
-                                                    startAnimation.setX(screenWidth - startAnimation.getMeasuredWidth()/2);
                                                     startAnimation.setY(screenHeight/2);
                                                 }
 
@@ -263,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onAnimationCancel(Animator animation) {
                                             startAnimation.measure(0,0);
-                                            startAnimation.setX(screenWidth - startAnimation.getMeasuredWidth()/2);
                                             startAnimation.setY(screenHeight/2);
                                         }
 
@@ -284,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 };
-                Animation.AnimationListener secondaryAnimationListener = new Animation.AnimationListener() {
+                final Animation.AnimationListener secondaryAnimationListener = new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
                         secondPanda.setRotation((float)Math.random());
@@ -304,28 +312,37 @@ public class MainActivity extends AppCompatActivity {
                             fadeOutAndHideImage(plusone);
                             counter++;
                             counterText.setText("Points: " + counter);
-                            secondaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
-                            setPositionTwo();
+                            if(counter > 9)
+                            {
+                                animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
+                                setPositionTwo();
+                                secondPanda.startAnimation(secondaryAnimation);
+                            }
                             if(counter == 20)
                             {
                                 thirdPanda.startAnimation(tertiaryAnimation);
                             }
-                            secondPanda.startAnimation(secondaryAnimation);
                         } else {
                             numHearts--;
                             switch (numHearts) {
                                 case 2:
                                     heartThree.setVisibility(View.INVISIBLE);
-                                    animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
-                                    setPositionTwo();
-                                    secondPanda.startAnimation(secondaryAnimation);
+                                    if(counter > 9)
+                                    {
+                                        secondaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
+                                        setPositionTwo();
+                                        secondPanda.startAnimation(secondaryAnimation);
+                                    }
                                     animateHeartsFalling(fallingHeart);
                                     break;
                                 case 1:
                                     heartTwo.setVisibility(View.INVISIBLE);
-                                    animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
-                                    setPositionTwo();
-                                    secondPanda.startAnimation(secondaryAnimation);
+                                    if(counter > 9)
+                                    {
+                                        animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 10, timeConstant)) / (Math.pow(counter - 10, timeConstant) + 10)));
+                                        setPositionTwo();
+                                        secondPanda.startAnimation(secondaryAnimation);
+                                    }
                                     animateHeartsFalling(fallingHeartTwo);
                                     break;
                                 case 0:
@@ -370,7 +387,6 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onAnimationCancel(Animator animation) {
                                                     startAnimation.measure(0,0);
-                                                    startAnimation.setX(screenWidth - startAnimation.getMeasuredWidth()/2);
                                                     startAnimation.setY(screenHeight/2);
                                                 }
 
@@ -384,7 +400,6 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onAnimationCancel(Animator animation) {
                                             startAnimation.measure(0,0);
-                                            startAnimation.setX(screenWidth - startAnimation.getMeasuredWidth()/2);
                                             startAnimation.setY(screenHeight/2);
                                         }
 
@@ -425,24 +440,33 @@ public class MainActivity extends AppCompatActivity {
                             fadeOutAndHideImage(plusone);
                             counter++;
                             counterText.setText("Points: " + counter);
-                            tertiaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
-                            setPositionThree();
-                            thirdPanda.startAnimation(tertiaryAnimation);
+                            if(counter > 19)
+                            {
+                                tertiaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
+                                setPositionThree();
+                                thirdPanda.startAnimation(tertiaryAnimation);
+                            }
                         } else {
                             numHearts--;
                             switch (numHearts) {
                                 case 2:
                                     heartThree.setVisibility(View.INVISIBLE);
-                                    tertiaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
-                                    setPositionThree();
-                                    thirdPanda.startAnimation(tertiaryAnimation);
+                                    if(counter > 19)
+                                    {
+                                        tertiaryAnimation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
+                                        setPositionThree();
+                                        thirdPanda.startAnimation(tertiaryAnimation);
+                                    }
                                     animateHeartsFalling(fallingHeart);
                                     break;
                                 case 1:
                                     heartTwo.setVisibility(View.INVISIBLE);
-                                    animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
-                                    setPositionThree();
-                                    picture.startAnimation(tertiaryAnimation);
+                                    if(counter > 19)
+                                    {
+                                        animation.setDuration(8000 - (long) ((8000 * Math.pow(counter - 20, timeConstant)) / (Math.pow(counter - 20, timeConstant) + 10)));
+                                        setPositionThree();
+                                        thirdPanda.startAnimation(tertiaryAnimation);
+                                    }
                                     animateHeartsFalling(fallingHeartTwo);
                                     break;
                                 case 0:
@@ -487,7 +511,6 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onAnimationCancel(Animator animation) {
                                                     startAnimation.measure(0,0);
-                                                    startAnimation.setX(screenWidth - startAnimation.getMeasuredWidth()/2);
                                                     startAnimation.setY(screenHeight/2);
                                                 }
 
@@ -501,7 +524,6 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onAnimationCancel(Animator animation) {
                                             startAnimation.measure(0,0);
-                                            startAnimation.setX(screenWidth - startAnimation.getMeasuredWidth()/2);
                                             startAnimation.setY(screenHeight/2);
                                         }
 
